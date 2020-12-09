@@ -1,15 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, FlatList, SafeAreaView} from 'react-native';
+import { cats } from './breeds';
+import LablesAndStars from './components/LablesAndStars'
+import Item from './components/Item'
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+    <View style={styles.test}>
+      <Text style={styles.title}>
+      Cats world
+      </Text>
+     </View>
+
+        <FlatList
+        data={cats}
+        renderItem= {({index, item}) => {
+          return (
+          <View style={styles.item}>
+            <Text style={styles.title}>
+            {item.breed}
+            </Text>
+            <Item cats={item}/>
+          </View>
+          )
+        }}
+        keyExtractor={cats => cats.breed}
+        />
+
+    </SafeAreaView>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -18,4 +42,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    fontSize: 32,
+  },
+  keyValue: {
+    padding: 20,
+  }
 });
